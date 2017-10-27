@@ -2327,7 +2327,7 @@ public class MediaProvider extends ContentProvider {
 
         // Used temporarily (until we have unique media IDs) to get an identifier
         // for the current sd card, so that the music app doesn't have to use the
-        // non-public getFatVolumeId method
+        // non-public getVolumeId method
         if (table == FS_ID) {
             MatrixCursor c = new MatrixCursor(new String[] {"fsid"});
             c.addRow(new Integer[] {mVolumeId});
@@ -5543,7 +5543,7 @@ public class MediaProvider extends ContentProvider {
                 final VolumeInfo vol = mStorageManager.getPrimaryPhysicalVolume();
                 if (vol != null) {
                     final StorageVolume actualVolume = mStorageManager.getPrimaryVolume();
-                    final int volumeId = actualVolume.getFatVolumeId();
+                    final int volumeId = actualVolume.getVolumeId();
 
                     // Must check for failure!
                     // If the volume is not (yet) mounted, this will create a new
@@ -5556,8 +5556,8 @@ public class MediaProvider extends ContentProvider {
                                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
                             // This may happen if external storage was _just_ mounted.  It may also
                             // happen if the volume ID is _actually_ 0xffffffff, in which case it
-                            // must be changed since FileUtils::getFatVolumeId doesn't allow for
-                            // that.  It may also indicate that FileUtils::getFatVolumeId is broken
+                            // must be changed since FileUtils::getVolumeId doesn't allow for
+                            // that.  It may also indicate that FileUtils::getVolumeId is broken
                             // (missing ioctl), which is also impossible to disambiguate.
                             Log.e(TAG, "Can't obtain external volume ID even though it's mounted.");
                         } else {
